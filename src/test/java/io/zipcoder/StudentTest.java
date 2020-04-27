@@ -7,6 +7,7 @@ public class StudentTest {
 
     @Test
     public void testToString() {
+
         String fName = "Amber";
         String lName = "Mo";
         Double [] examScores = {100.0,150.0,250.0,0.0};
@@ -15,10 +16,12 @@ public class StudentTest {
 
         String output = testStudent.toString();
         System.out.println(output);
+
     }
 
     @Test
     public void getExamScores() {
+
         String fName = "Amber";
         String lName = "Mo";
         Double [] examScores = {100.0,95.0,85.0,96.0};
@@ -33,6 +36,7 @@ public class StudentTest {
 
     @Test
     public void addExamScore() {
+
         String fName = "Amber";
         String lName = "Mo";
         Double [] examScores = {};
@@ -47,6 +51,7 @@ public class StudentTest {
 
     @Test
     public void getNumberOfExamsTaken() {
+
         String fName = "Amber";
         String lName = "Mo";
         Double [] examScores = {100.0,95.0,85.0,96.0};
@@ -56,10 +61,12 @@ public class StudentTest {
         Integer output = testStudent.getNumberOfExamsTaken();
         Assert.assertEquals(4,output,0.00);
         System.out.println(output);
+
     }
 
     @Test
     public void setExamScore() {
+
         String fName = "Amber";
         String lName = "Mo";
         Double [] examScores = {100.0,95.0,85.0,96.0};
@@ -74,13 +81,14 @@ public class StudentTest {
 
     @Test
     public void getAverageExamScores() {
+
         String fName = "Amber";
         String lName = "Mo";
         Double [] examScores = {100.0,150.0,250.0,0.0};
 
         Student  testStudent = new Student(fName,lName,examScores);
 
-        double output = testStudent.getAverageExamScores();
+        double output = testStudent.getAverageExamScore();
 
         Assert.assertEquals(125.0,output,0.00);
 

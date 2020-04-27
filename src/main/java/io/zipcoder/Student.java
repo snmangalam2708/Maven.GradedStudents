@@ -1,79 +1,80 @@
 package io.zipcoder;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Student {
-    private String firstName;
-    private String lastName;
-    ArrayList<Double> testScores = new ArrayList<Double>();
+
+    String firstName;
+    String lastName;
+    ArrayList<Double> testScores = new ArrayList<>();
 
 
-
-    public Student(String studentFirstName, String studentLasName, Double[] testScores) {
-        this.firstName = studentFirstName;
-        this.lastName = studentLasName;
-        Collections.addAll(this.testScores,testScores);
+    public Student(String firstName, String lastName, Double[] examScores) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        Collections.addAll(this.testScores, examScores);
     }
 
 
     public String getFirstName() {
-        return this.firstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-
     public String getLastName() {
-        return this.lastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    public Integer getNumberOfExamsTaken() {
 
-    public Integer getNumberOfExamsTaken(){
-//        System.out.println("Exams taken: ");
+        System.out.println("Exams taken :");
         return this.testScores.size();
     }
 
+    public String getExamScores() {
 
-    public void setExamScore(int examID, Double newScore){
-        System.out.println("Setting Exams Score: ");
-        this.testScores.set(examID - 1,newScore);
-    }
-
-    public String getExamScores(){
         String examScores = "";
 
-        for(int i = 0; i < testScores.size(); i++){
+        for (int i=0; i<testScores.size(); i++){
             int examID = i+1;
-            examScores += formatString(examID,testScores.get(i));
+            examScores += formatString(examID, testScores.get(i));
         }
-
         return examScores;
     }
 
-    public void addExamScore(Double examScores){
-        System.out.println("Adding Exam Score: ");
-        this.testScores.add(examScores);
+    public void addExamScore(double examScore){
+
+        this.testScores.add(examScore);
+        System.out.println("\n Score added : " + examScore);
+
     }
 
+    public void setExamScore(int examNumber, double newScore){
 
-    public Double getAverageExamScores (){
-        double sumOfExamScores = 0;
+        this.testScores.set(examNumber-1,newScore);
 
-        for (int i = 0; i < this.testScores.size(); i++) {
-            sumOfExamScores += this.testScores.get(i);
+    }
 
+    public Double getAverageExamScore(){
+
+        double sumOfScores = 0.0 ;
+
+        for (int i = 0; i< this.testScores.size(); i++){
+
+            sumOfScores += this.testScores.get(i);
         }
-        return (sumOfExamScores)/this.testScores.size();
 
+        System.out.println("Average exam Scores :");
+        return (sumOfScores)/this.testScores.size();
     }
 
     @Override
@@ -84,8 +85,8 @@ public class Student {
                 "Exam Scores:\n\n" + result;
     }
 
-    private String formatString (int counter, Double examScore){
-        return "\t" + "Exam " + (counter) + " ->  " + String.format("%.0f",examScore) + "\n";
-    }
+    public String formatString(int id, Double testscore){
 
+        return "\t" + " Exam: " + (id) + " -> " + String.format("%.0f", testscore) + "\n";
+    }
 }

@@ -1,112 +1,120 @@
 package io.zipcoder;
 
-import java.util.*;
+import java.sql.Array;
+import java.util.HashMap;
+
 
 public class Classroom {
-    Student[] allStudents;
 
-
-    public Classroom(Student[] students) {
-        this.allStudents = students;
-    }
+    Student[] students;
 
 
     public Classroom(int maxNumberOfStudents) {
-        this.allStudents = new Student[maxNumberOfStudents];
+        this.students = new Student[maxNumberOfStudents];
+    }
+
+    public Classroom(Student[] students) {
+        this.students = students;
     }
 
     public Classroom() {
-        this.allStudents = new Student[30];
-    }
+        this.students = new Student[30];
 
+    }
 
     public Student[] getStudents() {
-        return this.allStudents;
+        return this.students;
     }
 
-    public double getAverageExamScore() {
-        double examScores = 0;
+    public Double getAverageExamScore() {
 
-        for (int i = 0; i < this.allStudents.length; i++) {
-            for (int k = 0; k < this.allStudents[i].testScores.size(); k++) {
-                examScores += this.allStudents[i].testScores.get(k);
-            }
+        double sumOfScores = 0;
+
+        for (int i = 0; i < this.students.length; i++) {
+            for (int k = 0; k < this.students[i].testScores.size(); k++)
+                sumOfScores += this.students[i].testScores.get(k);
         }
 
-        return examScores / this.allStudents.length;
+        return sumOfScores / this.students.length;
     }
 
     public void addStudent(Student newStudent) {
-        int positionToAddStudent = 0;
 
-        for (int i = 0; i < this.allStudents.length; i++) {
-            if (this.allStudents[i] == null) {
-                positionToAddStudent = i;
+        int pos = 0;
+
+        for (int i = 0; i < this.students.length; i++) {
+            if (this.students[i] == null) {
+                pos = i;
                 break;
             }
         }
-        this.allStudents[positionToAddStudent] = newStudent;
 
+        this.students[pos] = newStudent;
     }
 
     public void removeStudent(String firstName, String lastName) {
 
-        int lastStudentIndex = allStudents.length - 1;
+        int lastStudentIndex = students.length - 1;
         int indexStudentToBeRemoved = 0;
 
-        for (int i = 0; i < allStudents.length; i++) {
-            if (allStudents[i].getFirstName().equals(firstName) && allStudents[i].getLastName().equals(lastName)) {
+        for (int i = 0; i < students.length; i++) {
+            if (students[i].getFirstName().equals(firstName) && students[i].getLastName().equals(lastName)) {
                 indexStudentToBeRemoved = i;
             }
         }
 
-        for (int i = indexStudentToBeRemoved; i < allStudents.length; i++) {
-            if (i != allStudents.length - 1) allStudents[i] = allStudents[i + 1];
+        for (int i = indexStudentToBeRemoved; i < students.length; i++) {
+            if (i != students.length - 1) students[i] = students[i + 1];
         }
 
-        allStudents[lastStudentIndex] = null;
+        students[lastStudentIndex] = null;
     }
 
+
     public Student[] getStudentsByScore() {
+
+
         double studentOneAverageScore = 0.0;
         double studentTwoAverageScore = 0.0;
         Student tempPosition;
-        Student[] tempStudents = new Student[allStudents.length];
+        Student[] tempStudents = new Student[students.length];
         int counter = 0;
 
         //TODO add lexigraphical sorting
 
-        for (int i = 0; i < allStudents.length; i++) {
-            if (allStudents.length > 1) {
-                for (int k = i; k < allStudents.length; k++) {
-                    studentOneAverageScore = allStudents[i].getAverageExamScores();
-                    studentTwoAverageScore = allStudents[k].getAverageExamScores();
+        for (int i = 0; i < students.length; i++) {
+            if (students.length > 1) {
+                for (int k = i; k < students.length; k++) {
+                    studentOneAverageScore = students[i].getAverageExamScore();
+                    studentTwoAverageScore = students[k].getAverageExamScore();
                     if (studentOneAverageScore > studentTwoAverageScore) {
-                        tempPosition = allStudents[i];
-                        allStudents[i] = allStudents[k];
-                        allStudents[k] = tempPosition;
+                        tempPosition = students[i];
+                        students[i] = students[k];
+                        students[k] = tempPosition;
                     }
                 }
             }
         }
 
         // reverse the order to make it descending
-        for (int i = allStudents.length - 1; i >= 0; i--) {
-            tempStudents[counter] = allStudents[i];
+
+        for (int i = students.length - 1; i >= 0; i--) {
+            tempStudents[counter] = students[i];
             counter++;
         }
-        allStudents = tempStudents;
-        return allStudents;
+        students = tempStudents;
+        return students;
     }
 
 
     public HashMap getGradeBook() {
-        int numOfStudents = this.allStudents.length;
+
+        int numOfStudents = this.students.length;
         HashMap map = new HashMap(numOfStudents * 2);
 
 
         for (int i = 0; i < numOfStudents; i++) {
-            map.put(this.allStudents[i], getStudentAverage(this.allStudents[i], numOfStudents));
+            map.put(this.students[i], getStudentAverage(this.students[i], numOfStudents));
         }
 
         return map;
@@ -123,7 +131,7 @@ public class Classroom {
 
         double getStudentAverage;
 
-        getStudentAverage = student.getAverageExamScores();
+        getStudentAverage = student.getAverageExamScore();
 
         if (getStudentAverage >= getAverageExamScore()) {
             return "B";

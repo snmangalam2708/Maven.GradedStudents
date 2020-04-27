@@ -1,8 +1,10 @@
 package io.zipcoder;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
 
 public class ClassroomTest {
 
@@ -43,14 +45,14 @@ public class ClassroomTest {
         Student[] classroomStudents = testClassroom.getStudents();
 
         double expected1 = 125.0;
-        double actual1 = classroomStudents[0].getAverageExamScores();
+        double actual1 = classroomStudents[0].getAverageExamScore();
         System.out.println("Average score by "+ student1.getFirstName() + " : " + actual1);
 
         Assert.assertEquals(expected1, actual1, 0.0);
 
 
         double expected = 225.0;
-        double actual = classroomStudents[1].getAverageExamScores();
+        double actual = classroomStudents[1].getAverageExamScore();
         System.out.println("Average score by "+ student2.getFirstName() + " : " + actual);
 
         Assert.assertEquals(expected, actual, 0.0);
